@@ -96,6 +96,15 @@ node GoogleDriveAction :Action: {
         return share;
     }
 
+    can get_files_in_folder(folder_id: str="") -> dict {
+        credentials = self.get_credentials();
+        if not folder_id {
+            folder_id = self.folder_id;
+        }
+        files = GoogleDriveAPI.get_files_in_folder(credentials, folder_id);
+        return files;
+    }
+
 
     can move_to_trash(file_id:str) -> dict {
         credentials = self.get_credentials();
@@ -103,29 +112,43 @@ node GoogleDriveAction :Action: {
         return move;
     }
 
-    can healthcheck() -> bool {
+    can healthcheck() -> Union[bool, dict] {
         try {
-            if(
-                self.scopes and
-                self.folder_id and
-                self.info_type and
-                self.project_id and
-                self.private_key_id and
-                self.private_key and
-                self.client_email and
-                self.client_id and
-                self.auth_uri and
-                self.token_uri and
-                self.auth_provider_x509_cert_url and
-                self.client_x509_cert_url and
-                self.universe_domain
-            ) {
-                return True;
+            # Validate required credentials
+            if (not self.project_id or not self.private_key or not self.client_email or not self.token_uri or not self.scopes) {
+                return {
+                    "status": False,
+                    "message": "Missing required Google Service Account credentials.",
+                    "severity": "error"
+                };
             }
-            return False;
+
+            # Validate folder_id
+            if not self.folder_id {
+                return {
+                    "status": False,
+                    "message": "Missing folder_id for Google Drive operations.",
+                    "severity": "error"
+                };
+            }
+
+            files = self.get_files_in_folder();
+            if(isinstance(files, list)) {
+                return {
+                    "status": False,
+                    "message": "Failed to retrieve files from the specified folder.",
+                    "severity": "error"
+                };
+            }
+
+            return True;
+
         } except Exception as e {
-            self.logger.error(f"An exception occurred in {self.label}:\n{traceback.format_exc()}\n");
-            return False;
+            return {
+                "status": False,
+                "message": f"Unexpected error during healthcheck: {e}",
+                "severity": "error"
+            };
         }
     }
 
