@@ -133,7 +133,7 @@ node GoogleDriveAction :Action: {
             }
 
             files = self.get_files_in_folder();
-            if(isinstance(files, list)) {
+            if(not isinstance(files, list)) {
                 return {
                     "status": False,
                     "message": "Failed to retrieve files from the specified folder.",

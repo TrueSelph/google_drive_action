@@ -61,7 +61,7 @@ This action provides seamless integration with Google Drive using the Google API
 2. Click **keys > add key > Create new key**.
 3. Select **JSON** and create.
 
-### Step 4: Share Folder or File with Service Account email
+### Step 4: Share Folder with Service Account email
 1. Open your Google Drive.
 2. Create a folder and copy the **folder_id**
 
