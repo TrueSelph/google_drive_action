@@ -6,7 +6,7 @@
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/TrueSelph/google_drive_action)
 ![GitHub](https://img.shields.io/github/license/TrueSelph/google_drive_action)
 
-This action provides seamless integration with Google Drive using the Google API Python client for managing and automating file and folder tasks. It enables efficient operations such as creating, updating, sharing, and organizing files in Google Drive. As a singleton in the action group, it ensures centralized management for Google Drive integrations. This package requires the Jivas library version 2.0.0, along with the `google-api-python-client` and `google-auth` Python packages.
+This action provides seamless integration with Google Drive using the Google API Python client for managing and automating file and folder tasks. It enables efficient operations such as uploading, moving and sharing files in Google Drive. As a singleton in the action group, it ensures centralized management for Google Drive integrations. This package requires the Jivas library version 2.0.0, along with the `google-api-python-client` and `google-auth` Python packages.
 
 ## Package Information
 
@@ -61,7 +61,7 @@ This action provides seamless integration with Google Drive using the Google API
 2. Click **keys > add key > Create new key**.
 3. Select **JSON** and create.
 
-### Step 4: Share Folder or File with Service Account email
+### Step 4: Share Folder with Service Account email
 1. Open your Google Drive.
 2. Create a folder and copy the **folder_id**
 
