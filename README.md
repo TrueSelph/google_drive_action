@@ -13,7 +13,7 @@ This action provides seamless integration with Google Drive using the Google API
 - **Name:** `jivas/google_drive_action`
 - **Author:** [V75 Inc.](https://v75inc.com/)
 - **Architype:** `GoogleDriveAction`
-- **Version:** 0.0.1
+- **Version:** 0.1.0
 
 ## Meta Information
 
@@ -26,7 +26,7 @@ This action provides seamless integration with Google Drive using the Google API
 - **Singleton:** true
 
 ## Dependencies
-- **Jivas:** ^2.0.0
+- **Jivas:** ^2.1.0
 - **Pip:**
   - **google-api-python-client:** 2.97.0
   - **google-auth:** 2.32.0

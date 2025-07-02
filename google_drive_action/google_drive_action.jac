@@ -1,11 +1,11 @@
-import:py logging;
-import:py traceback;
-import:py from logging {Logger}
-import:py from .modules.google_drive_api {GoogleDriveAPI}
-import:jac from jivas.agent.action.action { Action }
+import logging;
+import traceback;
+import from logging {Logger}
+import from .modules.google_drive_api {GoogleDriveAPI}
+import from jivas.agent.action.action { Action }
 
 
-node GoogleDriveAction :Action: {
+node GoogleDriveAction(Action) {
     has description:str = "Efficiently handles Google Drive API tasks and automation.";
     has scopes:list = ["https://www.googleapis.com/auth/drive.file"];
     has folder_id:str = "";
@@ -23,7 +23,7 @@ node GoogleDriveAction :Action: {
     has universe_domain:str = "googleapis.com";
 
 
-    can get_credentials() -> dict {
+    def get_credentials() -> dict {
 
         credentials = {
             "credentials": {
@@ -46,14 +46,14 @@ node GoogleDriveAction :Action: {
     }
 
 
-    can create_folder(folder_name:str) -> dict {
+    def create_folder(folder_name:str) -> dict {
         credentials = self.get_credentials();
         folder = GoogleDriveAPI.create_folder(credentials, folder_name);
         return folder;
     }
 
 
-    can upload_file(file_path:str, file_name:str="", folder_id:str="") -> dict {
+    def upload_file(file_path:str, file_name:str="", folder_id:str="") -> dict {
         if not folder_id {
             folder_id = self.folder_id;
         }
@@ -69,7 +69,7 @@ node GoogleDriveAction :Action: {
     }
 
 
-    can upload_file_via_url(url:str, file_name:str, folder_id:str="") -> dict {
+    def upload_file_via_url(url:str, file_name:str, folder_id:str="") -> dict {
         if not folder_id {
             folder_id = self.folder_id;
         }
@@ -80,14 +80,14 @@ node GoogleDriveAction :Action: {
     }
 
 
-    can share_file_or_folder(file_id:str, email_address:str, role:str = "reader") -> dict {
+    def share_file_or_folder(file_id:str, email_address:str, role:str = "reader") -> dict {
         credentials = self.get_credentials();
         share = GoogleDriveAPI.share_file_or_folder(credentials, file_id, email_address, role);
         return share;
     }
 
 
-    can get_file_share_link(file_id:str="") -> dict {
+    def get_file_share_link(file_id:str="") -> dict {
         if not file_id {
             file_id = self.file_id;
         }
@@ -96,7 +96,7 @@ node GoogleDriveAction :Action: {
         return share;
     }
 
-    can get_files_in_folder(folder_id: str="") -> dict {
+    def get_files_in_folder(folder_id: str="") -> dict {
         credentials = self.get_credentials();
         if not folder_id {
             folder_id = self.folder_id;
@@ -106,13 +106,13 @@ node GoogleDriveAction :Action: {
     }
 
 
-    can move_to_trash(file_id:str) -> dict {
+    def move_to_trash(file_id:str) -> dict {
         credentials = self.get_credentials();
         move = GoogleDriveAPI.move_to_trash(credentials, file_id);
         return move;
     }
 
-    can healthcheck() -> Union[bool, dict] {
+    def healthcheck() -> Union[bool, dict] {
         try {
             # Validate required credentials
             if (not self.project_id or not self.private_key or not self.client_email or not self.token_uri or not self.scopes) {

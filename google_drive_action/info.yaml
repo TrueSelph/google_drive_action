@@ -1,8 +1,8 @@
 package:
   name: jivas/google_drive_action
   author: V75 Inc.
-  architype: GoogleDriveAction
-  version: 0.0.1
+  archetype: GoogleDriveAction
+  version: 0.1.0
   meta:
     title: Google Drive Action
     description: Provides seamless integration with Google Drive for managing and automating file storage.
@@ -11,7 +11,7 @@ package:
   config:
     singleton: true
   dependencies:
-    jivas: 2.0.0
+    jivas: ~2.1.0
     pip:
       google-api-python-client: 2.97.0
       google-auth: 2.32.0
